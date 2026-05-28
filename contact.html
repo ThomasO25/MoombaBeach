@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Contact MooMba Beach Bar & Restaurant — Palm Beach, Aruba. Find our location, opening hours, phone, and email.">
+<title>Contact — MooMba Beach, Aruba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+.page-hero { min-height:44vh; display:flex; align-items:flex-end; padding-bottom:4rem; position:relative; overflow:hidden; background:linear-gradient(135deg, #0D3F4D 0%, #1A6B7C 55%, #2A98B2 100%); }
+.page-hero__wave { position:absolute; bottom:-1px; left:0; right:0; height:80px; z-index:1; }
+.page-hero__content { position:relative; z-index:2; padding-top:calc(var(--nav-h) + 2rem); }
+.page-hero__eyebrow { color:var(--gold-light); }
+.page-hero__eyebrow::before { background:var(--gold-light); }
+
+/* CONTACT LAYOUT */
+.contact-section { background:var(--sand-light); padding:6rem 0; }
+.contact-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:5rem; align-items:start; }
+
+/* INFO COLUMN */
+.contact-info { }
+.info-block { margin-top:2.5rem; display:flex; flex-direction:column; gap:1.75rem; }
+.info-item { display:flex; align-items:flex-start; gap:1.1rem; }
+.info-item__icon {
+  width:46px; height:46px; border-radius:12px;
+  background:rgba(26,107,124,0.09); display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; font-size:1.15rem; color:var(--ocean);
+}
+.info-item__label { font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:3px; font-weight:500; }
+.info-item__value { font-size:0.95rem; color:var(--charcoal); line-height:1.55; }
+.info-item__value a { color:var(--ocean); }
+.info-item__value a:hover { text-decoration:underline; }
+
+/* HOURS TABLE */
+.hours-table { margin-top:2.5rem; border:1px solid var(--border); border-radius:14px; overflow:hidden; background:#fff; }
+.hours-table__head { padding:1rem 1.5rem; background:var(--ocean); color:#fff; }
+.hours-table__title { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:300; }
+.hours-row { display:flex; justify-content:space-between; align-items:center; padding:0.75rem 1.5rem; border-top:1px solid var(--border); font-size:0.88rem; }
+.hours-row:nth-child(even) { background:var(--sand-light); }
+.hours-row__day { color:var(--warm-gray); text-transform:capitalize; }
+.hours-row__time { font-weight:400; color:var(--charcoal); }
+.hours-row--kitchen { background:rgba(26,107,124,0.05); }
+.hours-row--kitchen .hours-row__day { color:var(--ocean); font-weight:500; }
+.hours-row--kitchen .hours-row__time { color:var(--ocean); }
+
+/* SOCIALS */
+.contact-socials { display:flex; gap:10px; margin-top:2rem; }
+.contact-social {
+  width:42px; height:42px; border-radius:50%; border:1px solid var(--border-md);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--warm-gray); transition:all 0.25s;
+}
+.contact-social:hover { border-color:var(--ocean); background:var(--ocean); color:#fff; }
+
+/* CONTACT CARD */
+.contact-card {
+  background:#fff; border-radius:20px; padding:2.5rem;
+  border:1px solid var(--border); box-shadow:0 8px 40px rgba(28,28,26,0.06);
+}
+.contact-card__title { font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:var(--charcoal); margin-bottom:0.5rem; }
+.contact-card__sub { font-size:0.88rem; color:var(--muted); margin-bottom:2rem; }
+
+/* FORM */
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.form-group { margin-bottom:1.1rem; }
+.form-label { display:block; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--warm-gray); margin-bottom:5px; font-weight:500; }
+.form-input, .form-select, .form-textarea {
+  width:100%; padding:0.8rem 1rem;
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  font-family:'DM Sans',sans-serif; font-size:0.9rem; color:var(--charcoal);
+  background:var(--sand-light);
+  transition:border-color 0.25s, background 0.25s;
+  outline:none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color:var(--ocean); background:#fff; box-shadow:0 0 0 3px rgba(26,107,124,0.08); }
+.form-textarea { resize:vertical; min-height:110px; }
+.form-select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236A6159' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; padding-right:2.5rem; }
+.form-note { font-size:0.8rem; color:var(--muted); margin-top:0.75rem; text-align:center; }
+.form-note a { color:var(--ocean); }
+.form-success { display:none; text-align:center; padding:2rem 1rem; }
+.form-success__icon { width:60px; height:60px; border-radius:50%; background:rgba(26,107,124,0.09); display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; font-size:1.5rem; }
+.form-success__title { font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--charcoal); margin-bottom:0.5rem; }
+.form-success__text { font-size:0.875rem; color:var(--muted); }
+
+/* MAP */
+.map-section { height:480px; position:relative; z-index:0; }
+#map { width:100%; height:100%; }
+/* Override Leaflet attribution overlap if needed */
+.leaflet-control-attribution { font-size:10px !important; }
+
+/* Map custom marker popup */
+.leaflet-popup-content-wrapper { border-radius:12px !important; padding:0 !important; overflow:hidden; box-shadow:0 8px 32px rgba(28,28,26,0.15) !important; border:none !important; }
+.leaflet-popup-content { margin:0 !important; }
+.map-popup { padding:1.25rem 1.5rem; }
+.map-popup__name { font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:#1B1B19; font-weight:400; margin-bottom:4px; }
+.map-popup__addr { font-size:0.82rem; color:#6A6159; margin-bottom:8px; }
+.map-popup__link { font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; color:#1A6B7C; font-weight:500; }
+.leaflet-popup-tip-container { display:none; }
+.leaflet-popup-close-button { color:#6A6159 !important; font-size:18px !important; top:8px !important; right:10px !important; }
+
+/* NEIGHBORS */
+.neighbors-section { background:var(--sand); padding:4rem 0; }
+.neighbors-head { margin-bottom:2rem; }
+.neighbors-grid { display:flex; gap:2rem; align-items:center; flex-wrap:wrap; }
+.neighbor-logo {
+  height:48px; filter:grayscale(1) opacity(0.55);
+  transition:filter 0.3s, opacity 0.3s;
+  object-fit:contain;
+}
+.neighbor-logo:hover { filter:none; opacity:1; }
+
+@media(max-width:900px) { .contact-grid { grid-template-columns:1fr; gap:3rem; } }
+@media(max-width:480px) { .form-row { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="nav__mobile" aria-label="Mobile navigation">
+  <button class="nav__mobile-close" aria-label="Close menu">✕</button>
+  <a class="nav__mobile-link" href="index.html">Home</a>
+  <a class="nav__mobile-link" href="menu.html">Menu</a>
+  <a class="nav__mobile-link" href="events.html">Events</a>
+  <a class="nav__mobile-link" href="gallery.html">Gallery</a>
+  <a class="nav__mobile-link" href="contact.html">Contact</a>
+</nav>
+
+<header class="nav" role="banner">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="MooMba Beach — Home">
+      <div class="nav__logo-ring" aria-hidden="true">M</div>
+      <div><span class="nav__logo-text">MooMba Beach</span><span class="nav__logo-sub">Bar & Restaurant · Aruba</span></div>
+    </a>
+    <nav aria-label="Primary navigation">
+      <div class="nav__links">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link" href="menu.html">Menu</a>
+        <a class="nav__link" href="events.html">Events</a>
+        <a class="nav__link" href="gallery.html">Gallery</a>
+        <a class="nav__link active" href="contact.html">Contact</a>
+      </div>
+    </nav>
+    <div class="nav__actions">
+      <a href="contact.html" class="btn btn--primary btn--sm">Contact Us</a>
+      <button class="nav__burger" aria-label="Open menu"><span class="nav__burger-line"></span><span class="nav__burger-line"></span><span class="nav__burger-line"></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <svg class="page-hero__wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,45 C360,80 720,10 1080,45 C1260,62 1380,30 1440,40 L1440,80 L0,80 Z" fill="#FAF6EC" opacity="0.1"/>
+    <path d="M0,58 C400,28 800,76 1200,42 C1360,24 1420,56 1440,58 L1440,80 L0,80 Z" fill="#FAF6EC"/>
+  </svg>
+  <div class="container page-hero__content">
+    <div class="t-eyebrow page-hero__eyebrow reveal" style="margin-bottom:0.75rem;">Get in Touch</div>
+    <h1 class="t-h1 reveal d1" style="color:#fff;">Find us on<br><em>Palm Beach</em></h1>
+    <p class="reveal d2" style="color:rgba(255,255,255,0.65); max-width:480px; margin-top:0.85rem;">Located between the Marriott and Holiday Inn — right on the sand where the good times never stop.</p>
+  </div>
+</section>
+
+<!-- MAP — Leaflet, properly initialized with fixed marker -->
+<div class="map-section" role="region" aria-label="MooMba Beach location map">
+  <div id="map"></div>
+</div>
+
+<!-- CONTACT CONTENT -->
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- INFO -->
+      <div class="contact-info reveal-left">
+        <div class="t-eyebrow" style="margin-bottom:0.75rem;">Contact Information</div>
+        <h2 class="t-h2">We'd love to <em>hear from you</em></h2>
+
+        <div class="info-block">
+          <div class="info-item">
+            <div class="info-item__icon" aria-hidden="true">📍</div>
+            <div>
+              <div class="info-item__label">Address</div>
+              <div class="info-item__value">Palm Beach, between Marriott &amp; Holiday Inn<br>Noord, Aruba</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-item__icon" aria-hidden="true">📞</div>
+            <div>
+              <div class="info-item__label">Phone</div>
+              <div class="info-item__value"><a href="tel:+2975865365">(+297) 586-5365</a></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-item__icon" aria-hidden="true">✉️</div>
+            <div>
+              <div class="info-item__label">Email</div>
+              <div class="info-item__value"><a href="mailto:moombabeachbar@arubawineanddine.com">moombabeachbar@arubawineanddine.com</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hours-table" style="margin-top:2.5rem;">
+          <div class="hours-table__head">
+            <div class="hours-table__title">Opening Hours</div>
+          </div>
+          <div class="hours-row"><span class="hours-row__day">Monday</span><span class="hours-row__time">10:00 AM – 1:00 AM</span></div>
+          <div class="hours-row"><span class="hours-row__day">Tuesday</span><span class="hours-row__time">10:00 AM – 1:00 AM</span></div>
+          <div class="hours-row"><span class="hours-row__day">Wednesday</span><span class="hours-row__time">10:00 AM – 1:00 AM</span></div>
+          <div class="hours-row"><span class="hours-row__day">Thursday</span><span class="hours-row__time">10:00 AM – 1:00 AM</span></div>
+          <div class="hours-row"><span class="hours-row__day">Friday</span><span class="hours-row__time">10:00 AM – 2:00 AM</span></div>
+          <div class="hours-row"><span class="hours-row__day">Saturday</span><span class="hours-row__time">10:00 AM – 2:00 AM</span></div>
+          <div class="hours-row"><span class="hours-row__day">Sunday</span><span class="hours-row__time">10:00 AM – 2:00 AM</span></div>
+          <div class="hours-row hours-row--kitchen"><span class="hours-row__day">Kitchen (daily)</span><span class="hours-row__time">11:00 AM – 10:00 PM</span></div>
+        </div>
+
+        <div class="contact-socials">
+          <a class="contact-social" href="https://www.facebook.com/MooMbaBeach" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a class="contact-social" href="https://www.instagram.com/moombabeacharuba/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a class="contact-social" href="https://www.tripadvisor.com/Restaurant_Review-g488162-d736893-Reviews-Moomba_Beach_Bar_Restaurant-Noord_Aruba.html" target="_blank" rel="noopener" aria-label="TripAdvisor">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </a>
+          <a class="contact-social" href="mailto:moombabeach@arubawineanddine.com" aria-label="Email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- CONTACT FORM -->
+      <div class="reveal-right">
+        <div class="contact-card">
+          <div class="contact-card__title">Send us a Message</div>
+          <p class="contact-card__sub">Questions, feedback, group inquiries — we're happy to help. We'll get back to you within 24 hours.</p>
+
+          <div class="form-success" id="form-success" role="status" aria-live="polite">
+            <div class="form-success__icon" aria-hidden="true">✓</div>
+            <div class="form-success__title">Message sent!</div>
+            <p class="form-success__text">Thanks for reaching out. We'll be in touch soon. See you at the beach!</p>
+            <a href="index.html" class="btn btn--ocean" style="margin-top:1.5rem;">Back to Home</a>
+          </div>
+
+          <form id="contact-form" novalidate onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="first_name">First Name *</label>
+                <input class="form-input" type="text" id="first_name" name="first_name" required autocomplete="given-name" placeholder="Alex">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="last_name">Last Name *</label>
+                <input class="form-input" type="text" id="last_name" name="last_name" required autocomplete="family-name" placeholder="Johnson">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address *</label>
+              <input class="form-input" type="email" id="email" name="email" required autocomplete="email" placeholder="alex@example.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">Phone Number</label>
+              <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel" placeholder="+1 555 000 0000">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="subject">Subject</label>
+              <select class="form-select" id="subject" name="subject">
+                <option value="">Select a topic</option>
+                <option>General Enquiry</option>
+                <option>Group Visit</option>
+                <option>Private Event</option>
+                <option>Feedback</option>
+                <option>Media & Press</option>
+                <option>Partnership</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Message *</label>
+              <textarea class="form-textarea" id="message" name="message" required placeholder="Tell us what's on your mind…"></textarea>
+            </div>
+            <button type="submit" class="btn btn--ocean" style="width:100%; justify-content:center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send Message
+            </button>
+            <p class="form-note">
+              For immediate assistance call <a href="tel:+2975865365">(+297) 586-5365</a>
+            </p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- NEIGHBORS -->
+<div class="neighbors-section">
+  <div class="container">
+    <div class="neighbors-head">
+      <div class="t-eyebrow" style="margin-bottom:0.5rem;">Our Neighbors</div>
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:300;">Great company on Palm Beach</h3>
+    </div>
+    <div class="neighbors-grid">
+      <a href="https://www.jolly-pirates.com/" target="_blank" rel="noopener" aria-label="Jolly Pirates">
+        <img class="neighbor-logo" src="https://www.moombabeach.com/storage/app/resources/resize/220_0_0_0_auto/img_1136216e79321dd900b8b9daa93aa735.png" alt="Jolly Pirates Fun Cruises" loading="lazy">
+      </a>
+      <a href="https://www.palmbeachdiversaruba.com/" target="_blank" rel="noopener" aria-label="Palm Beach Divers">
+        <img class="neighbor-logo" src="https://www.moombabeach.com/storage/app/resources/resize/220_0_0_0_auto/img_b2e62b40aaf254400497e641271489b9.png" alt="Palm Beach Divers Aruba" loading="lazy">
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div><div class="footer__logo-wrap"><div class="footer__logo-ring" aria-hidden="true">M</div><span class="footer__brand-name">MooMba Beach</span></div><p class="footer__brand-desc">Aruba's premier beach bar. Between Marriott and Holiday Inn, right on Palm Beach.</p><div class="footer__socials"><a class="footer__social" href="https://www.facebook.com/MooMbaBeach" target="_blank" rel="noopener" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a><a class="footer__social" href="https://www.instagram.com/moombabeacharuba/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a class="footer__social" href="mailto:moombabeach@arubawineanddine.com" aria-label="Email"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a></div></div>
+      <div><div class="footer__col-head">Pages</div><ul class="footer__links"><li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li><li><a href="events.html">Events</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer__col-head">Partners</div><ul class="footer__links"><li><a href="https://www.jolly-pirates.com" target="_blank" rel="noopener">Jolly Pirates</a></li><li><a href="https://www.kukookunuku.com" target="_blank" rel="noopener">Kukoo Kunuku</a></li><li><a href="https://www.palmbeachdiversaruba.com" target="_blank" rel="noopener">Palm Beach Divers</a></li><li><a href="https://www.aruba.com" target="_blank" rel="noopener">Aruba.com</a></li></ul></div>
+      <div><div class="footer__col-head">More Venues</div><ul class="footer__links"><li><a href="https://www.quepasaaruba.com" target="_blank" rel="noopener">Que Pasa</a></li><li><a href="https://www.mambo-jambo.com" target="_blank" rel="noopener">Mambo Jambo</a></li><li><a href="https://www.cafetheplaza.com" target="_blank" rel="noopener">Café the Plaza</a></li><li><a href="https://www.tangoaruba.com" target="_blank" rel="noopener">Tango Argentine Grill</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 MooMba Beach · Aruba Wine and Dine · All rights reserved</span><div style="display:flex;gap:1.5rem;"><a href="#">Privacy Policy</a></div></div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="main.js"></script>
+<script>
+/* ── LEAFLET MAP — FIXED MARKER ──
+   Key: use setView() with exact coords, and marker with exact same coords.
+   The previous bug was using fitBounds() which recenters based on padding,
+   causing visual mismatch. We use setView() directly with zoom level.
+   Also: icon uses iconAnchor: [12, 41] to pin tip of marker to coords.
+*/
+(function initMap() {
+  const LAT = 12.577453;
+  const LNG = -70.044777;
+  const ZOOM = 17;
+
+  /* Custom marker icon */
+  const markerIcon = L.divIcon({
+    className: '',
+    html: `<svg width="36" height="48" viewBox="0 0 36 48" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 0C8.059 0 0 8.059 0 18c0 13.5 18 30 18 30s18-16.5 18-30C36 8.059 27.941 0 18 0z"
+            fill="#D9543A" stroke="#B83D26" stroke-width="1.5"/>
+      <circle cx="18" cy="18" r="8" fill="white" opacity="0.95"/>
+      <text x="18" y="23" text-anchor="middle" font-family="Cormorant Garamond, serif"
+            font-size="12" font-weight="600" fill="#D9543A">M</text>
+    </svg>`,
+    iconSize: [36, 48],
+    iconAnchor: [18, 48],  /* bottom-center of the pin tip */
+    popupAnchor: [0, -52]  /* popup appears above marker */
+  });
+
+  /* Init map */
+  const map = L.map('map', {
+    scrollWheelZoom: false,
+    dragging: true,
+    touchZoom: true,
+    zoomControl: true,
+    attributionControl: true
+  }).setView([LAT, LNG], ZOOM);
+
+  /* Tile layer */
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19
+  }).addTo(map);
+
+  /* Marker — placed at exact same coords as setView */
+  const marker = L.marker([LAT, LNG], { icon: markerIcon }).addTo(map);
+
+  /* Popup with styled content */
+  const popupContent = `
+    <div class="map-popup">
+      <div class="map-popup__name">MooMba Beach Bar &amp; Restaurant</div>
+      <div class="map-popup__addr">Palm Beach, between Marriott &amp; Holiday Inn<br>Noord, Aruba</div>
+      <a class="map-popup__link" href="https://maps.google.com/?q=12.577453,-70.044777" target="_blank" rel="noopener">
+        Open in Google Maps →
+      </a>
+    </div>`;
+
+  marker.bindPopup(popupContent, {
+    closeButton: true,
+    minWidth: 220,
+    maxWidth: 280
+  });
+
+  /* Open popup by default */
+  marker.openPopup();
+
+  /* Re-open popup if closed and marker clicked */
+  marker.on('click', function() { this.openPopup(); });
+
+  /* Enable scroll wheel zoom only when map is focused */
+  map.on('focus', () => map.scrollWheelZoom.enable());
+  map.on('blur',  () => map.scrollWheelZoom.disable());
+})();
+
+/* ── FORM SUBMIT ── */
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+</script>
+</body>
+</html>

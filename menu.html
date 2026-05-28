@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Explore MooMba Beach's full menu — craft cocktails, bar food, fresh seafood, and daily specials on Palm Beach, Aruba.">
+<title>Menu — MooMba Beach, Aruba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── PAGE HERO ── */
+.page-hero { min-height: 46vh; display:flex; align-items:flex-end; padding-bottom:4rem; position:relative; overflow:hidden; background: linear-gradient(135deg, #0D3F4D 0%, #1A6B7C 55%, #2A98B2 100%); }
+.page-hero__wave { position:absolute; bottom:-1px; left:0; right:0; height:80px; z-index:1; pointer-events:none; }
+.page-hero__content { position:relative; z-index:2; padding-top: calc(var(--nav-h) + 2rem); }
+.page-hero__eyebrow { color: var(--gold-light); margin-bottom:0.75rem; }
+.page-hero__eyebrow::before { background: var(--gold-light); }
+.page-hero__title { color:#fff; margin-top:0.5rem; }
+.page-hero__desc { color:rgba(255,255,255,0.68); max-width:500px; margin-top:0.85rem; font-size:1rem; }
+
+/* TABS */
+.menu-tabs { background:#fff; border-bottom: 1px solid var(--border); position: sticky; top: var(--nav-h); z-index: 100; }
+.menu-tabs__inner { display:flex; gap:0; max-width:1200px; margin:0 auto; padding:0 2rem; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.menu-tabs__inner::-webkit-scrollbar { display:none; }
+.menu-tab {
+  flex-shrink: 0;
+  padding: 1.1rem 1.4rem;
+  background: none; border: none;
+  font-size: 0.8rem; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--muted); cursor:pointer;
+  position:relative; transition: color 0.25s;
+}
+.menu-tab::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--ocean); border-radius:2px 2px 0 0; transform:scaleX(0); transition:transform 0.25s var(--ease); }
+.menu-tab.active { color:var(--ocean); }
+.menu-tab.active::after { transform:scaleX(1); }
+.menu-tab:hover { color:var(--ocean); }
+
+/* PANELS */
+.menu-panel { display:none; padding: 5rem 0; }
+.menu-panel.active { display:block; }
+
+/* SECTION HEADER */
+.menu-section-head { margin-bottom: 2.75rem; }
+.menu-section-desc { color:var(--warm-gray); max-width:540px; margin-top:0.75rem; }
+
+/* ITEM GRID */
+.menu-items { display:grid; grid-template-columns: repeat(auto-fill, minmax(310px,1fr)); gap:1.25rem; }
+.menu-item {
+  background:#fff; border:1px solid var(--border); border-radius:14px;
+  padding:1.4rem 1.5rem;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+.menu-item:hover { border-color:var(--ocean-light); box-shadow:0 6px 24px rgba(26,107,124,0.08); transform:translateY(-2px); }
+.menu-item__head { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; margin-bottom:0.5rem; }
+.menu-item__name { font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--charcoal); line-height:1.3; }
+.menu-item__price { font-weight:500; color:var(--coral); white-space:nowrap; font-size:0.9rem; }
+.menu-item__desc { font-size:0.84rem; color:var(--warm-gray); line-height:1.68; }
+.menu-item__tag { display:inline-block; margin-top:0.75rem; background:rgba(26,107,124,0.08); color:var(--ocean); padding:3px 10px; border-radius:100px; font-size:0.7rem; letter-spacing:0.06em; }
+.menu-item__tag--gold { background:rgba(196,145,62,0.1); color:var(--gold); }
+.menu-item__tag--coral { background:rgba(217,84,58,0.1); color:var(--coral); }
+
+/* PDF CTA */
+.menu-pdfs { background: var(--sand); padding: 4rem 0; }
+.menu-pdfs__grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; margin-top:2.5rem; }
+.menu-pdf-card {
+  background:#fff; border:1px solid var(--border); border-radius:14px;
+  padding:1.75rem 1.5rem; text-align:center;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  display:flex; flex-direction:column; align-items:center; gap:0.75rem;
+}
+.menu-pdf-card:hover { border-color:var(--ocean); transform:translateY(-3px); box-shadow:0 12px 32px rgba(26,107,124,0.1); }
+.menu-pdf-card__icon { font-size:2rem; }
+.menu-pdf-card__title { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--charcoal); }
+.menu-pdf-card__desc { font-size:0.8rem; color:var(--muted); line-height:1.6; }
+
+@media(max-width:768px) { .menu-pdfs__grid { grid-template-columns:1fr 1fr; } }
+@media(max-width:480px) { .menu-pdfs__grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<nav class="nav__mobile" aria-label="Mobile navigation">
+  <button class="nav__mobile-close" aria-label="Close menu">✕</button>
+  <a class="nav__mobile-link" href="index.html">Home</a>
+  <a class="nav__mobile-link" href="menu.html">Menu</a>
+  <a class="nav__mobile-link" href="events.html">Events</a>
+  <a class="nav__mobile-link" href="gallery.html">Gallery</a>
+  <a class="nav__mobile-link" href="contact.html">Contact</a>
+  <div class="nav__mobile-sub">
+    <a href="https://www.yummyaruba.com/gift-cards" target="_blank">Gift Cards</a>
+    <a href="https://www.aruba-works.com/" target="_blank">Jobs</a>
+  </div>
+</nav>
+
+<header class="nav" role="banner">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="MooMba Beach — Home">
+      <div class="nav__logo-ring" aria-hidden="true">M</div>
+      <div>
+        <span class="nav__logo-text">MooMba Beach</span>
+        <span class="nav__logo-sub">Bar & Restaurant · Aruba</span>
+      </div>
+    </a>
+    <nav aria-label="Primary navigation">
+      <div class="nav__links">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link active" href="menu.html">Menu</a>
+        <a class="nav__link" href="events.html">Events</a>
+        <a class="nav__link" href="gallery.html">Gallery</a>
+        <a class="nav__link" href="contact.html">Contact</a>
+      </div>
+    </nav>
+    <div class="nav__actions">
+      <a href="contact.html" class="btn btn--primary btn--sm">Contact Us</a>
+      <button class="nav__burger" aria-label="Open menu"><span class="nav__burger-line"></span><span class="nav__burger-line"></span><span class="nav__burger-line"></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <svg class="page-hero__wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,40 C300,80 600,10 900,45 C1100,68 1300,28 1440,40 L1440,80 L0,80 Z" fill="#FAF6EC" opacity="0.1"/>
+    <path d="M0,55 C400,25 800,75 1200,42 C1320,32 1400,55 1440,58 L1440,80 L0,80 Z" fill="#FAF6EC"/>
+  </svg>
+  <div class="container page-hero__content">
+    <div class="t-eyebrow page-hero__eyebrow reveal">Our Menu</div>
+    <h1 class="t-h1 page-hero__title reveal d1">Food, drinks &amp; <em>good vibes</em></h1>
+    <p class="page-hero__desc reveal d2">Beach bites made for a perfect day on the sand. Convenient, delicious, and crafted with care. For full dining, visit our restaurant.</p>
+  </div>
+</section>
+
+<!-- STICKY TABS -->
+<div class="menu-tabs" role="tablist" aria-label="Menu categories" data-tab-group="menu">
+  <div class="menu-tabs__inner">
+    <button class="menu-tab active" role="tab" aria-selected="true" data-tab="menu" data-target="cocktails">Cocktails & Drinks</button>
+    <button class="menu-tab" role="tab" aria-selected="false" data-tab="menu" data-target="bar-food">Bar Food</button>
+    <button class="menu-tab" role="tab" aria-selected="false" data-tab="menu" data-target="specials">Specials</button>
+    <button class="menu-tab" role="tab" aria-selected="false" data-tab="menu" data-target="desserts">Desserts</button>
+  </div>
+</div>
+
+<!-- COCKTAILS -->
+<div class="menu-panel active" id="cocktails" role="tabpanel">
+  <div class="container">
+    <div class="menu-section-head reveal">
+      <div class="t-eyebrow" style="margin-bottom:0.75rem;">Cocktails & Drinks</div>
+      <h2 class="t-h2">Handcrafted <em>tropical cocktails</em></h2>
+      <p class="menu-section-desc t-body">Every drink is made with fresh ingredients and Caribbean spirit. Sip, soak up the sun, repeat.</p>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item reveal"><div class="menu-item__head"><span class="menu-item__name">MooMba Sunset Punch</span><span class="menu-item__price">$12</span></div><p class="menu-item__desc">Passion fruit, mango, white rum, prosecco float — served in our signature souvenir cup.</p><span class="menu-item__tag menu-item__tag--coral">Signature</span></div>
+      <div class="menu-item reveal d1"><div class="menu-item__head"><span class="menu-item__name">Caribbean Mojito</span><span class="menu-item__price">$10</span></div><p class="menu-item__desc">Fresh mint, lime, Bacardí, cane sugar, crushed ice, soda — the classic, done right.</p><span class="menu-item__tag">Classic</span></div>
+      <div class="menu-item reveal d2"><div class="menu-item__head"><span class="menu-item__name">Aruba Ariba</span><span class="menu-item__price">$11</span></div><p class="menu-item__desc">The island's famous cocktail — vodka, rum, crème de banane, grenadine, tropical juice.</p><span class="menu-item__tag">Island Favorite</span></div>
+      <div class="menu-item reveal"><div class="menu-item__head"><span class="menu-item__name">Coconut Daiquiri</span><span class="menu-item__price">$13</span></div><p class="menu-item__desc">Served in the shell — blended coconut, rum, lime, triple sec. Pure tropical bliss.</p><span class="menu-item__tag menu-item__tag--gold">Chef's Pick</span></div>
+      <div class="menu-item reveal d1"><div class="menu-item__head"><span class="menu-item__name">Piña Colada</span><span class="menu-item__price">$10</span></div><p class="menu-item__desc">Pineapple, coconut cream, white rum — frozen or on the rocks, your choice.</p><span class="menu-item__tag">Classic</span></div>
+      <div class="menu-item reveal d2"><div class="menu-item__head"><span class="menu-item__name">Watermelon Spritz</span><span class="menu-item__price">$9</span></div><p class="menu-item__desc">Fresh watermelon, Aperol, prosecco, fresh basil. Light, refreshing, beautiful.</p><span class="menu-item__tag">Seasonal</span></div>
+      <div class="menu-item reveal"><div class="menu-item__head"><span class="menu-item__name">Passion Fruit Margarita</span><span class="menu-item__price">$12</span></div><p class="menu-item__desc">Tequila, triple sec, fresh passion fruit, lime — served with a tajín-salted rim.</p><span class="menu-item__tag menu-item__tag--coral">Popular</span></div>
+      <div class="menu-item reveal d1"><div class="menu-item__head"><span class="menu-item__name">Local Beer</span><span class="menu-item__price">$6</span></div><p class="menu-item__desc">Balashi, Bright, or Coors Light — cold, refreshing, and perfect with the view.</p><span class="menu-item__tag">Beer</span></div>
+      <div class="menu-item reveal d2"><div class="menu-item__head"><span class="menu-item__name">Fresh Juice</span><span class="menu-item__price">$5</span></div><p class="menu-item__desc">Orange, mango, pineapple, or passion fruit — freshly squeezed daily.</p><span class="menu-item__tag">Non-Alcoholic</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- BAR FOOD -->
+<div class="menu-panel" id="bar-food" role="tabpanel">
+  <div class="container">
+    <div class="menu-section-head reveal">
+      <div class="t-eyebrow" style="margin-bottom:0.75rem;">Bar Food</div>
+      <h2 class="t-h2">Beach bites &amp; <em>island flavors</em></h2>
+      <p class="menu-section-desc t-body">Easy to eat, impossible to resist. Everything you need for a perfect day at the bar.</p>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item reveal"><div class="menu-item__head"><span class="menu-item__name">Fish Tacos</span><span class="menu-item__price">$16</span></div><p class="menu-item__desc">Grilled mahi-mahi, avocado crema, pickled slaw, mango salsa in warm corn tortillas.</p><span class="menu-item__tag menu-item__tag--coral">Fan Favorite</span></div>
+      <div class="menu-item reveal d1"><div class="menu-item__head"><span class="menu-item__name">Shrimp Ceviche</span><span class="menu-item__price">$14</span></div><p class="menu-item__desc">Fresh shrimp, citrus marinade, red onion, cilantro, jalapeño, tortilla chips.</p><span class="menu-item__tag">Light</span></div>
+      <div class="menu-item reveal d2"><div class="menu-item__head"><span class="menu-item__name">Beach Burger</span><span class="menu-item__price">$18</span></div><p class="menu-item__desc">8oz Angus beef, aged cheddar, caramelized onion, brioche bun, house fries.</p><span class="menu-item__tag">Classic</span></div>
+      <div class="menu-item reveal"><div class="menu-item__head"><span class="menu-item__name">Lobster Roll</span><span class="menu-item__price">$26</span></div><p class="menu-item__desc">Fresh Caribbean lobster, lemon aioli, celery, tarragon in a toasted brioche roll.</p><span class="menu-item__tag menu-item__tag--gold">Premium</span></div>
+      <div class="menu-item reveal d1"><div class="menu-item__head"><span class="menu-item__name">Nachos Grande</span><span class="menu-item__price">$15</span></div><p class="menu-item__desc">Tortilla chips, queso, pulled chicken, jalapeños, black beans, sour cream, guac.</p><span class="menu-item__tag">Share</span></div>
+      <div class="menu-item reveal d2"><div class="menu-item__head"><span class="menu-item__name">Catch of the Day</span><span class="menu-item__price">Market</span></div><p class="menu-item__desc">Grilled fresh daily catch, seasonal vegetables, herb butter, roasted potatoes.</p><span class="menu-item__tag menu-item__tag--coral">Chef's Special</span></div>
+      <div class="menu-item reveal"><div class="menu-item__head"><span class="menu-item__name">Calamari Fritti</span><span class="menu-item__price">$13</span></div><p class="menu-item__desc">Lightly battered fried squid, sriracha aioli, lemon — crisp and golden.</p><span class="menu-item__tag">Starter</span></div>
+      <div class="menu-item reveal d1"><div class="menu-item__head"><span class="menu-item__name">Caesar Salad</span><span class="menu-item__price">$12</span></div><p class="menu-item__desc">Romaine, house-made Caesar dressing, parmesan, croutons. Add chicken or shrimp +$5.</p><span class="menu-item__tag">Light</span></div>
+      <div class="menu-item reveal d2"><div class="menu-item__head"><span class="menu-item__name">Chicken Wings</span><span class="menu-item__price">$14</span></div><p class="menu-item__desc">Crispy wings in your choice of Buffalo, BBQ, or Caribbean jerk. Celery and ranch.</p><span class="menu-item__tag">Classic</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SPECIALS -->
+<div class="menu-panel" id="specials" role="tabpanel">
+  <div class="container">
+    <div class="menu-section-head reveal">
+      <div class="t-eyebrow" style="margin-bottom:0.75rem;">Daily Specials</div>
+      <h2 class="t-h2">Something <em>special</em> every day</h2>
+      <p class="menu-section-desc t-body">Recurring deals and seasonal offers that make every visit feel like an occasion.</p>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item reveal"><div class="menu-item__head"><span class="menu-item__name">Happy Hour</span><span class="menu-item__price">3 – 6 PM</span></div><p class="menu-item__desc">2-for-1 on all classic cocktails and local beers. Mon–Fri only. Ask your server for the current selection.</p><span class="menu-item__tag">Mon – Fri</span></div>
+      <div class="menu-item reveal d1"><div class="menu-item__head"><span class="menu-item__name">Sunday Brunch</span><span class="menu-item__price">$35 p.p.</span></div><p class="menu-item__desc">All-inclusive brunch with bottomless mimosas, live music, and a full Caribbean spread. 11 AM – 2 PM every Sunday.</p><span class="menu-item__tag menu-item__tag--coral">Sunday</span></div>
+      <div class="menu-item reveal d2"><div class="menu-item__head"><span class="menu-item__name">Friday Lobster Night</span><span class="menu-item__price">Fridays</span></div><p class="menu-item__desc">Whole Caribbean lobster grilled over open flame with our signature butter sauce. Limited availability — come early.</p><span class="menu-item__tag menu-item__tag--gold">Weekly</span></div>
+      <div class="menu-item reveal"><div class="menu-item__head"><span class="menu-item__name">Sunset Special</span><span class="menu-item__price">$8</span></div><p class="menu-item__desc">Our Aruba Ariba cocktail available at a special price every day from 5 – 7 PM during golden hour.</p><span class="menu-item__tag">Daily</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- DESSERTS -->
+<div class="menu-panel" id="desserts" role="tabpanel">
+  <div class="container">
+    <div class="menu-section-head reveal">
+      <div class="t-eyebrow" style="margin-bottom:0.75rem;">Desserts</div>
+      <h2 class="t-h2">Sweet endings &amp; <em>island treats</em></h2>
+      <p class="menu-section-desc t-body">End your beach day on the sweetest note possible.</p>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item reveal"><div class="menu-item__head"><span class="menu-item__name">Coconut Panna Cotta</span><span class="menu-item__price">$9</span></div><p class="menu-item__desc">Creamy coconut panna cotta with mango coulis and toasted coconut flakes.</p><span class="menu-item__tag menu-item__tag--gold">Chef's Pick</span></div>
+      <div class="menu-item reveal d1"><div class="menu-item__head"><span class="menu-item__name">Key Lime Pie</span><span class="menu-item__price">$8</span></div><p class="menu-item__desc">Classic Florida-style key lime pie — zesty, creamy, and topped with whipped cream.</p><span class="menu-item__tag">Classic</span></div>
+      <div class="menu-item reveal d2"><div class="menu-item__head"><span class="menu-item__name">Banana Foster</span><span class="menu-item__price">$10</span></div><p class="menu-item__desc">Caramelized banana, dark rum sauce, cinnamon, served warm over vanilla ice cream.</p><span class="menu-item__tag menu-item__tag--coral">Popular</span></div>
+      <div class="menu-item reveal"><div class="menu-item__head"><span class="menu-item__name">Sorbet du Jour</span><span class="menu-item__price">$7</span></div><p class="menu-item__desc">Ask your server for today's tropical sorbet — refreshing and dairy-free.</p><span class="menu-item__tag">Vegan</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PDF DOWNLOADS -->
+<div class="menu-pdfs">
+  <div class="container">
+    <div class="t-eyebrow reveal" style="margin-bottom:0.75rem;">Download</div>
+    <h2 class="t-h2 reveal d1">Full menu <em>PDFs</em></h2>
+    <div class="menu-pdfs__grid">
+      <a class="menu-pdf-card reveal" href="https://www.moombabeach.com/storage/app/media/moo-beachbar-menu-a3-2025-new-compressed.pdf" target="_blank" rel="noopener">
+        <div class="menu-pdf-card__icon">🍹</div>
+        <div class="menu-pdf-card__title">Bar Food Menu</div>
+        <p class="menu-pdf-card__desc">Full beach bar menu with food and snacks</p>
+        <span class="btn btn--ghost btn--sm" style="margin-top:auto;">Download PDF</span>
+      </a>
+      <a class="menu-pdf-card reveal d1" href="https://www.moombabeach.com/storage/app/media/moo-dessertscocktails-menu-letter-2025-new-compressed.pdf" target="_blank" rel="noopener">
+        <div class="menu-pdf-card__icon">🍸</div>
+        <div class="menu-pdf-card__title">Cocktails & Desserts</div>
+        <p class="menu-pdf-card__desc">Full drinks and desserts selection</p>
+        <span class="btn btn--ghost btn--sm" style="margin-top:auto;">Download PDF</span>
+      </a>
+      <a class="menu-pdf-card reveal d2" href="https://www.moombabeach.com/storage/app/media/moo-dinner-menu-letter-2025-new-compressed.pdf" target="_blank" rel="noopener">
+        <div class="menu-pdf-card__icon">🦞</div>
+        <div class="menu-pdf-card__title">Dinner Menu</div>
+        <p class="menu-pdf-card__desc">Full restaurant dinner selection</p>
+        <span class="btn btn--ghost btn--sm" style="margin-top:auto;">Download PDF</span>
+      </a>
+      <a class="menu-pdf-card reveal d3" href="https://www.moombabeach.com/storage/app/media/moo-lunch-menu-letter-2025-new-compressed.pdf" target="_blank" rel="noopener">
+        <div class="menu-pdf-card__icon">🥗</div>
+        <div class="menu-pdf-card__title">Lunch Menu</div>
+        <p class="menu-pdf-card__desc">Full restaurant lunch selection</p>
+        <span class="btn btn--ghost btn--sm" style="margin-top:auto;">Download PDF</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo-wrap"><div class="footer__logo-ring" aria-hidden="true">M</div><span class="footer__brand-name">MooMba Beach</span></div>
+        <p class="footer__brand-desc">Aruba's premier beach bar. Ocean views, craft cocktails, fresh seafood, and nightly entertainment on Palm Beach.</p>
+        <div class="footer__socials">
+          <a class="footer__social" href="https://www.facebook.com/MooMbaBeach" target="_blank" rel="noopener" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a class="footer__social" href="https://www.instagram.com/moombabeacharuba/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a class="footer__social" href="mailto:moombabeach@arubawineanddine.com" aria-label="Email"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+        </div>
+      </div>
+      <div><div class="footer__col-head">Pages</div><ul class="footer__links"><li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li><li><a href="events.html">Events</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer__col-head">Partners</div><ul class="footer__links"><li><a href="https://www.jolly-pirates.com" target="_blank" rel="noopener">Jolly Pirates</a></li><li><a href="https://www.kukookunuku.com" target="_blank" rel="noopener">Kukoo Kunuku</a></li><li><a href="https://www.palmbeachdiversaruba.com" target="_blank" rel="noopener">Palm Beach Divers</a></li><li><a href="https://www.aruba.com" target="_blank" rel="noopener">Aruba.com</a></li></ul></div>
+      <div><div class="footer__col-head">More Venues</div><ul class="footer__links"><li><a href="https://www.quepasaaruba.com" target="_blank" rel="noopener">Que Pasa</a></li><li><a href="https://www.mambo-jambo.com" target="_blank" rel="noopener">Mambo Jambo</a></li><li><a href="https://www.surfsidearuba.com" target="_blank" rel="noopener">Surfside Beach Bar</a></li><li><a href="https://www.tangoaruba.com" target="_blank" rel="noopener">Tango Argentine Grill</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 MooMba Beach · Aruba Wine and Dine</span><a href="index.html">Back to Home</a></div>
+  </div>
+</footer>
+
+<div class="sticky-book"><a href="contact.html" class="btn btn--primary">Contact Us</a></div>
+<script src="main.js"></script>
+</body>
+</html>

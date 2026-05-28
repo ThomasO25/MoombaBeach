@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Photo gallery of MooMba Beach Bar & Restaurant — Palm Beach, Aruba. See our beach parties, cocktails, views, and events.">
+<title>Gallery — MooMba Beach, Aruba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.page-hero { min-height:46vh; display:flex; align-items:flex-end; padding-bottom:4rem; position:relative; overflow:hidden; background:var(--ocean-deep); }
+.page-hero__wave { position:absolute; bottom:-1px; left:0; right:0; height:80px; z-index:1; }
+.page-hero__content { position:relative; z-index:2; padding-top:calc(var(--nav-h) + 2rem); }
+.page-hero__eyebrow { color:var(--gold-light); }
+.page-hero__eyebrow::before { background:var(--gold-light); }
+.page-hero__bg-img { position:absolute; inset:0; background-image:url('https://www.moombabeach.com/storage/app/uploads/public/691/b68/e71/thumb_5732_400_400_0_0_crop.jpg'); background-size:cover; background-position:center; filter:brightness(0.35) saturate(0.7); }
+
+/* GALLERY */
+.gallery-page { background:var(--charcoal); padding:5rem 0 6rem; }
+.gallery-filters { display:flex; gap:0.5rem; margin-bottom:3rem; flex-wrap:wrap; }
+.gallery-filter {
+  padding:0.5rem 1.25rem; border-radius:100px; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;
+  background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.55); border:1px solid rgba(255,255,255,0.1);
+  cursor:pointer; transition:all 0.25s;
+}
+.gallery-filter.active, .gallery-filter:hover { background:var(--ocean); color:#fff; border-color:var(--ocean); }
+
+/* MASONRY-LIKE GRID */
+.gallery-grid {
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 200px;
+  gap:6px;
+}
+.gallery-item {
+  overflow:hidden; cursor:pointer; position:relative; background:#111;
+  border-radius:4px;
+}
+.gallery-item--tall { grid-row: span 2; }
+.gallery-item--wide { grid-column: span 2; }
+.gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.55s var(--ease), filter 0.35s; display:block; }
+.gallery-item:hover img { transform:scale(1.08); filter:brightness(0.75); }
+.gallery-item__overlay {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; transition:opacity 0.3s;
+  color:#fff; font-size:2rem;
+}
+.gallery-item:hover .gallery-item__overlay { opacity:1; }
+.gallery-item__overlay-inner { display:flex; flex-direction:column; align-items:center; gap:6px; }
+.gallery-item__overlay-text { font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.8); }
+
+/* LIGHTBOX */
+#lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.94); z-index:9999; align-items:center; justify-content:center; padding:2rem; }
+#lightbox.open { display:flex; animation: lbIn 0.25s var(--ease-out); }
+@keyframes lbIn { from { opacity:0; } to { opacity:1; } }
+#lb-img { max-width:100%; max-height:88vh; object-fit:contain; border-radius:6px; box-shadow:0 32px 80px rgba(0,0,0,0.6); }
+#lb-close { position:absolute; top:1.5rem; right:1.5rem; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); color:#fff; width:48px; height:48px; border-radius:50%; font-size:1.3rem; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s; }
+#lb-close:hover { background:rgba(255,255,255,0.16); }
+#lb-caption { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); color:rgba(255,255,255,0.55); font-size:0.82rem; letter-spacing:0.06em; white-space:nowrap; }
+
+/* INSTAGRAM CTA */
+.ig-cta { background:var(--ocean-deep); padding:4rem 0; text-align:center; }
+.ig-cta h2 { font-family:'Cormorant Garamond',serif; font-size:2rem; color:#fff; font-weight:300; margin-bottom:0.75rem; }
+.ig-cta p { color:rgba(255,255,255,0.55); font-size:0.9rem; margin-bottom:2rem; }
+.ig-handle { color:var(--gold-light); font-weight:500; }
+
+@media(max-width:900px) {
+  .gallery-grid { grid-template-columns:repeat(3,1fr); }
+  .gallery-item--wide { grid-column:span 2; }
+}
+@media(max-width:600px) {
+  .gallery-grid { grid-template-columns:repeat(2,1fr); grid-auto-rows:160px; }
+  .gallery-item--wide, .gallery-item--tall { grid-column:auto; grid-row:auto; }
+}
+</style>
+</head>
+<body>
+
+<div id="lightbox" role="dialog" aria-label="Gallery image viewer">
+  <button id="lb-close" aria-label="Close lightbox">✕</button>
+  <img id="lb-img" src="" alt="">
+  <div id="lb-caption"></div>
+</div>
+
+<nav class="nav__mobile" aria-label="Mobile navigation">
+  <button class="nav__mobile-close" aria-label="Close menu">✕</button>
+  <a class="nav__mobile-link" href="index.html">Home</a>
+  <a class="nav__mobile-link" href="menu.html">Menu</a>
+  <a class="nav__mobile-link" href="events.html">Events</a>
+  <a class="nav__mobile-link" href="gallery.html">Gallery</a>
+  <a class="nav__mobile-link" href="contact.html">Contact</a>
+</nav>
+
+<header class="nav" role="banner">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="MooMba Beach — Home">
+      <div class="nav__logo-ring" aria-hidden="true">M</div>
+      <div><span class="nav__logo-text">MooMba Beach</span><span class="nav__logo-sub">Bar & Restaurant · Aruba</span></div>
+    </a>
+    <nav aria-label="Primary navigation">
+      <div class="nav__links">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link" href="menu.html">Menu</a>
+        <a class="nav__link" href="events.html">Events</a>
+        <a class="nav__link active" href="gallery.html">Gallery</a>
+        <a class="nav__link" href="contact.html">Contact</a>
+      </div>
+    </nav>
+    <div class="nav__actions">
+      <a href="contact.html" class="btn btn--primary btn--sm">Contact Us</a>
+      <button class="nav__burger" aria-label="Open menu"><span class="nav__burger-line"></span><span class="nav__burger-line"></span><span class="nav__burger-line"></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero__bg-img" aria-hidden="true"></div>
+  <svg class="page-hero__wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,40 C360,78 720,10 1080,45 C1260,62 1380,30 1440,40 L1440,80 L0,80 Z" fill="#1B1B19" opacity="0.12"/>
+    <path d="M0,58 C300,28 700,75 1100,42 C1320,26 1400,55 1440,58 L1440,80 L0,80 Z" fill="#1B1B19"/>
+  </svg>
+  <div class="container page-hero__content">
+    <div class="t-eyebrow page-hero__eyebrow reveal" style="margin-bottom:0.75rem;">Gallery</div>
+    <h1 class="t-h1 reveal d1" style="color:#fff;">See what <em>paradise</em><br>looks like</h1>
+    <p class="reveal d2" style="color:rgba(255,255,255,0.6); margin-top:0.85rem;">Tag us on Instagram: <a href="https://www.instagram.com/moombabeacharuba/" target="_blank" rel="noopener" style="color:var(--gold-light); font-weight:500;">@moombabeacharuba</a></p>
+  </div>
+</section>
+
+<div class="gallery-page">
+  <div class="container--wide">
+
+    <div class="gallery-grid" role="list" aria-label="Photo gallery">
+
+      <div class="gallery-item gallery-item--tall gallery-item--wide" role="listitem"
+           data-lightbox="https://www.moombabeach.com/storage/app/uploads/public/691/b68/e71/691b68e718a20641050676.png"
+           data-alt="MooMba Beach oceanfront" tabindex="0" role="button" aria-label="View full photo">
+        <img src="https://www.moombabeach.com/storage/app/uploads/public/691/b68/e71/thumb_5732_400_400_0_0_crop.jpg" alt="MooMba Beach oceanfront bar" loading="eager" width="400" height="400">
+        <div class="gallery-item__overlay"><div class="gallery-item__overlay-inner"><span>⊕</span><span class="gallery-item__overlay-text">View</span></div></div>
+      </div>
+
+      <div class="gallery-item gallery-item--tall" role="listitem"
+           data-lightbox="https://www.moombabeach.com/storage/app/uploads/public/691/b68/eb1/691b68eb19fe3071154435.png"
+           data-alt="MooMba Beach cocktails" tabindex="0" aria-label="View full photo">
+        <img src="https://www.moombabeach.com/storage/app/uploads/public/691/b68/eb1/thumb_5733_400_400_0_0_crop.jpg" alt="MooMba Beach cocktails" loading="lazy" width="400" height="400">
+        <div class="gallery-item__overlay"><div class="gallery-item__overlay-inner"><span>⊕</span><span class="gallery-item__overlay-text">View</span></div></div>
+      </div>
+
+      <div class="gallery-item" role="listitem"
+           data-lightbox="https://www.moombabeach.com/storage/app/uploads/public/691/b68/f2b/691b68f2b2868514053574.png"
+           data-alt="MooMba Beach vibes" tabindex="0" aria-label="View full photo">
+        <img src="https://www.moombabeach.com/storage/app/uploads/public/691/b68/f2b/thumb_5735_400_400_0_0_crop.jpg" alt="MooMba Beach vibes" loading="lazy" width="400" height="400">
+        <div class="gallery-item__overlay"><div class="gallery-item__overlay-inner"><span>⊕</span><span class="gallery-item__overlay-text">View</span></div></div>
+      </div>
+
+      <div class="gallery-item" role="listitem"
+           data-lightbox="https://www.moombabeach.com/storage/app/uploads/public/691/b68/fc5/691b68fc5a2f1925222527.png"
+           data-alt="MooMba Beach sunset" tabindex="0" aria-label="View full photo">
+        <img src="https://www.moombabeach.com/storage/app/uploads/public/691/b68/fc5/thumb_5736_400_400_0_0_crop.jpg" alt="MooMba Beach sunset" loading="lazy" width="400" height="400">
+        <div class="gallery-item__overlay"><div class="gallery-item__overlay-inner"><span>⊕</span><span class="gallery-item__overlay-text">View</span></div></div>
+      </div>
+
+      <div class="gallery-item gallery-item--wide" role="listitem"
+           data-lightbox="https://www.moombabeach.com/storage/app/uploads/public/691/b68/ff1/691b68ff19182001331193.png"
+           data-alt="MooMba Beach party" tabindex="0" aria-label="View full photo">
+        <img src="https://www.moombabeach.com/storage/app/uploads/public/691/b68/ff1/thumb_5737_400_400_0_0_crop.jpg" alt="MooMba Beach party night" loading="lazy" width="400" height="400">
+        <div class="gallery-item__overlay"><div class="gallery-item__overlay-inner"><span>⊕</span><span class="gallery-item__overlay-text">View</span></div></div>
+      </div>
+
+      <div class="gallery-item" role="listitem"
+           data-lightbox="https://www.moombabeach.com/storage/app/uploads/public/691/b69/015/691b690151000439977469.png"
+           data-alt="MooMba Beach food" tabindex="0" aria-label="View full photo">
+        <img src="https://www.moombabeach.com/storage/app/uploads/public/691/b69/015/thumb_5738_400_400_0_0_crop.jpg" alt="MooMba Beach food" loading="lazy" width="400" height="400">
+        <div class="gallery-item__overlay"><div class="gallery-item__overlay-inner"><span>⊕</span><span class="gallery-item__overlay-text">View</span></div></div>
+      </div>
+
+      <div class="gallery-item" role="listitem"
+           data-lightbox="https://www.moombabeach.com/storage/app/uploads/public/691/b69/048/691b690480263598545746.png"
+           data-alt="MooMba Beach atmosphere" tabindex="0" aria-label="View full photo">
+        <img src="https://www.moombabeach.com/storage/app/uploads/public/691/b69/048/thumb_5739_400_400_0_0_crop.jpg" alt="MooMba Beach atmosphere" loading="lazy" width="400" height="400">
+        <div class="gallery-item__overlay"><div class="gallery-item__overlay-inner"><span>⊕</span><span class="gallery-item__overlay-text">View</span></div></div>
+      </div>
+
+      <div class="gallery-item gallery-item--tall" role="listitem"
+           data-lightbox="https://www.moombabeach.com/storage/app/uploads/public/691/b69/0b6/691b690b6f35a852619023.png"
+           data-alt="MooMba Beach ocean view" tabindex="0" aria-label="View full photo">
+        <img src="https://www.moombabeach.com/storage/app/uploads/public/691/b69/0b6/thumb_5740_400_400_0_0_crop.jpg" alt="MooMba Beach ocean view" loading="lazy" width="400" height="400">
+        <div class="gallery-item__overlay"><div class="gallery-item__overlay-inner"><span>⊕</span><span class="gallery-item__overlay-text">View</span></div></div>
+      </div>
+
+      <div class="gallery-item" role="listitem"
+           data-lightbox="https://www.moombabeach.com/storage/app/uploads/public/691/b69/15b/691b6915b209e007311704.png"
+           data-alt="MooMba Beach DJ night" tabindex="0" aria-label="View full photo">
+        <img src="https://www.moombabeach.com/storage/app/uploads/public/691/b69/15b/thumb_5741_400_400_0_0_crop.jpg" alt="MooMba Beach DJ night" loading="lazy" width="400" height="400">
+        <div class="gallery-item__overlay"><div class="gallery-item__overlay-inner"><span>⊕</span><span class="gallery-item__overlay-text">View</span></div></div>
+      </div>
+
+      <div class="gallery-item" role="listitem"
+           data-lightbox="https://www.moombabeach.com/storage/app/uploads/public/691/b69/1cc/691b691cccae2283106548.png"
+           data-alt="MooMba Beach tropical drinks" tabindex="0" aria-label="View full photo">
+        <img src="https://www.moombabeach.com/storage/app/uploads/public/691/b69/1cc/thumb_5742_400_400_0_0_crop.jpg" alt="MooMba Beach tropical drinks" loading="lazy" width="400" height="400">
+        <div class="gallery-item__overlay"><div class="gallery-item__overlay-inner"><span>⊕</span><span class="gallery-item__overlay-text">View</span></div></div>
+      </div>
+
+      <div class="gallery-item gallery-item--wide" role="listitem"
+           data-lightbox="https://www.moombabeach.com/storage/app/uploads/public/691/b69/229/691b69229912a416299943.png"
+           data-alt="MooMba Beach gathering" tabindex="0" aria-label="View full photo">
+        <img src="https://www.moombabeach.com/storage/app/uploads/public/691/b69/229/thumb_5743_400_400_0_0_crop.jpg" alt="MooMba Beach gathering" loading="lazy" width="400" height="400">
+        <div class="gallery-item__overlay"><div class="gallery-item__overlay-inner"><span>⊕</span><span class="gallery-item__overlay-text">View</span></div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- IG CTA -->
+<div class="ig-cta">
+  <div class="container--narrow">
+    <h2>Follow the fun on Instagram</h2>
+    <p>Share your MooMba moments and tag us for a chance to be featured.</p>
+    <a href="https://www.instagram.com/moombabeacharuba/" target="_blank" rel="noopener" class="btn btn--primary btn--lg">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      @moombabeacharuba
+    </a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div><div class="footer__logo-wrap"><div class="footer__logo-ring" aria-hidden="true">M</div><span class="footer__brand-name">MooMba Beach</span></div><p class="footer__brand-desc">Aruba's premier beach bar. See the photos, then come live it in person.</p><div class="footer__socials"><a class="footer__social" href="https://www.facebook.com/MooMbaBeach" target="_blank" rel="noopener" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a><a class="footer__social" href="https://www.instagram.com/moombabeacharuba/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a></div></div>
+      <div><div class="footer__col-head">Pages</div><ul class="footer__links"><li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li><li><a href="events.html">Events</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer__col-head">Partners</div><ul class="footer__links"><li><a href="https://www.jolly-pirates.com" target="_blank" rel="noopener">Jolly Pirates</a></li><li><a href="https://www.kukookunuku.com" target="_blank" rel="noopener">Kukoo Kunuku</a></li><li><a href="https://www.aruba.com" target="_blank" rel="noopener">Aruba.com</a></li></ul></div>
+      <div><div class="footer__col-head">More Venues</div><ul class="footer__links"><li><a href="https://www.quepasaaruba.com" target="_blank" rel="noopener">Que Pasa</a></li><li><a href="https://www.mambo-jambo.com" target="_blank" rel="noopener">Mambo Jambo</a></li><li><a href="https://www.surfsidearuba.com" target="_blank" rel="noopener">Surfside Beach Bar</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 MooMba Beach · Aruba Wine and Dine</span><a href="index.html">Back to Home</a></div>
+  </div>
+</footer>
+
+<div class="sticky-book"><a href="contact.html" class="btn btn--primary">Contact Us</a></div>
+
+<script src="main.js"></script>
+<script>
+/* keyboard nav for gallery items */
+document.querySelectorAll('.gallery-item[tabindex]').forEach(item => {
+  item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); } });
+});
+</script>
+</body>
+</html>

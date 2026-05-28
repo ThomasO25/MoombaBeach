@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Events and specials at MooMba Beach — themed beach parties, live music, DJ nights, and happy hours in Aruba.">
+<title>Events & Specials — MooMba Beach, Aruba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.page-hero { min-height:46vh; display:flex; align-items:flex-end; padding-bottom:4rem; position:relative; overflow:hidden; background:var(--charcoal); }
+.page-hero__wave { position:absolute; bottom:-1px; left:0; right:0; height:80px; z-index:1; }
+.page-hero__content { position:relative; z-index:2; padding-top:calc(var(--nav-h) + 2rem); }
+.page-hero__eyebrow { color:var(--gold-light); }
+.page-hero__eyebrow::before { background:var(--gold-light); }
+/* Animated dot bg */
+.page-hero__dots {
+  position:absolute; inset:0; z-index:0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+.page-hero__glow { position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse at 30% 70%, rgba(26,107,124,0.3) 0%, transparent 60%); }
+
+/* EVENTS GRID */
+.events-section { background: var(--sand-light); }
+.events-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(340px,1fr)); gap:2rem; margin-top:3rem; }
+.event-card-full {
+  background:#fff; border-radius:18px; overflow:hidden; border:1px solid var(--border);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  display:flex; flex-direction:column;
+}
+.event-card-full:hover { transform:translateY(-5px); box-shadow:0 20px 48px rgba(28,28,26,0.09); }
+.event-card-full__img { width:100%; height:230px; object-fit:cover; }
+.event-card-full__body { padding:1.75rem; flex:1; display:flex; flex-direction:column; }
+.event-card-full__meta { display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.9rem; }
+.event-card-full__date {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--sand); color:var(--coral);
+  padding:0.3rem 0.85rem; border-radius:100px;
+  font-size:0.75rem; font-weight:500;
+}
+.event-card-full__time {
+  font-size:0.78rem; color:var(--muted);
+  display:inline-flex; align-items:center; gap:5px;
+}
+.event-card-full__title { font-family:'Cormorant Garamond',serif; font-size:1.35rem; color:var(--charcoal); line-height:1.25; margin-bottom:0.65rem; }
+.event-card-full__desc { font-size:0.875rem; color:var(--warm-gray); line-height:1.72; flex:1; }
+
+/* FEATURED event */
+.event-featured {
+  background:#fff; border-radius:20px; overflow:hidden; border:1px solid var(--border);
+  display:grid; grid-template-columns:1fr 1fr;
+  margin-bottom:3rem;
+  box-shadow:0 8px 32px rgba(28,28,26,0.06);
+}
+.event-featured__img { width:100%; height:100%; object-fit:cover; min-height:360px; }
+.event-featured__body { padding:3rem; display:flex; flex-direction:column; justify-content:center; }
+.event-featured__label { font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--coral); font-weight:500; margin-bottom:0.75rem; display:flex; align-items:center; gap:8px; }
+.event-featured__label::before { content:''; display:block; width:20px; height:1.5px; background:var(--coral); border-radius:1px; }
+.event-featured__title { font-family:'Cormorant Garamond',serif; font-size:2.2rem; color:var(--charcoal); line-height:1.15; margin-bottom:1rem; }
+.event-featured__date { display:flex; align-items:center; gap:8px; background:var(--sand); color:var(--ocean); padding:0.45rem 1rem; border-radius:100px; font-size:0.8rem; font-weight:500; width:fit-content; margin-bottom:1.25rem; }
+.event-featured__desc { font-size:0.9rem; color:var(--warm-gray); line-height:1.75; }
+
+/* RECURRING */
+.recurring { background:var(--sand); padding:6rem 0; }
+.recurring__grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:1.5rem; margin-top:3rem; }
+.recurring-card {
+  background:#fff; border:1px solid var(--border); border-radius:16px; padding:2rem;
+  display:flex; flex-direction:column; gap:0.75rem;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.recurring-card:hover { border-color:var(--ocean); transform:translateY(-3px); }
+.recurring-card__icon { font-size:2rem; }
+.recurring-card__title { font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--charcoal); }
+.recurring-card__when { font-size:0.78rem; letter-spacing:0.06em; color:var(--coral); font-weight:500; text-transform:uppercase; }
+.recurring-card__desc { font-size:0.845rem; color:var(--warm-gray); line-height:1.68; }
+
+@media(max-width:768px) {
+  .event-featured { grid-template-columns:1fr; }
+  .event-featured__img { min-height:220px; }
+  .event-featured__body { padding:2rem; }
+}
+@media(max-width:480px) { .events-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="nav__mobile" aria-label="Mobile navigation">
+  <button class="nav__mobile-close" aria-label="Close menu">✕</button>
+  <a class="nav__mobile-link" href="index.html">Home</a>
+  <a class="nav__mobile-link" href="menu.html">Menu</a>
+  <a class="nav__mobile-link" href="events.html">Events</a>
+  <a class="nav__mobile-link" href="gallery.html">Gallery</a>
+  <a class="nav__mobile-link" href="contact.html">Contact</a>
+</nav>
+
+<header class="nav" role="banner">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="MooMba Beach — Home">
+      <div class="nav__logo-ring" aria-hidden="true">M</div>
+      <div><span class="nav__logo-text">MooMba Beach</span><span class="nav__logo-sub">Bar & Restaurant · Aruba</span></div>
+    </a>
+    <nav aria-label="Primary navigation">
+      <div class="nav__links">
+        <a class="nav__link" href="index.html">Home</a>
+        <a class="nav__link" href="menu.html">Menu</a>
+        <a class="nav__link active" href="events.html">Events</a>
+        <a class="nav__link" href="gallery.html">Gallery</a>
+        <a class="nav__link" href="contact.html">Contact</a>
+      </div>
+    </nav>
+    <div class="nav__actions">
+      <a href="contact.html" class="btn btn--primary btn--sm">Contact Us</a>
+      <button class="nav__burger" aria-label="Open menu"><span class="nav__burger-line"></span><span class="nav__burger-line"></span><span class="nav__burger-line"></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero__dots" aria-hidden="true"></div>
+  <div class="page-hero__glow" aria-hidden="true"></div>
+  <svg class="page-hero__wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,50 C300,80 700,10 1100,48 C1260,62 1380,35 1440,50 L1440,80 L0,80 Z" fill="#FAF6EC" opacity="0.08"/>
+    <path d="M0,60 C400,30 900,78 1300,45 C1380,38 1420,60 1440,62 L1440,80 L0,80 Z" fill="#FAF6EC"/>
+  </svg>
+  <div class="container page-hero__content">
+    <div class="t-eyebrow page-hero__eyebrow reveal" style="margin-bottom:0.75rem;">Specials & Events</div>
+    <h1 class="t-h1 reveal d1" style="color:#fff;">Always a reason<br>to come <em style="color:var(--gold-light);">back</em></h1>
+    <p class="reveal d2" style="color:rgba(255,255,255,0.65); max-width:500px; margin-top:1rem;">From wild beach parties to live DJ nights and World Cup watch parties — something special is always happening at MooMba.</p>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="section events-section">
+  <div class="container--wide">
+
+    <!-- FEATURED -->
+    <div class="t-eyebrow reveal" style="margin-bottom:1rem;">Featured Event</div>
+    <div class="event-featured reveal d1">
+      <img class="event-featured__img" src="https://www.moombabeach.com/storage/app/uploads/public/69e/267/150/thumb_6075_550_412_0_0_crop.jpg" alt="Oranjeplein World Cup at MooMba Beach" loading="lazy" width="550" height="412">
+      <div class="event-featured__body">
+        <div class="event-featured__label">Running Now</div>
+        <h2 class="event-featured__title">Oranjeplein — World Cup on the Beach</h2>
+        <div class="event-featured__date">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          June 11 – July 19 · 10 AM – 10 PM
+        </div>
+        <p class="event-featured__desc">This summer, Oranjeplein switches things up and lands right on the sand at MooMba Beach. From June 11th through July 19th, it becomes the place to catch every World Cup match live — cold beer in hand, sand between your toes, surrounded by fellow fans. Pure beach stadium energy.</p>
+      </div>
+    </div>
+
+    <!-- ALL EVENTS -->
+    <div class="t-eyebrow reveal" style="margin-bottom:1rem; margin-top:1rem;">All Upcoming Events</div>
+    <div class="events-grid">
+
+      <article class="event-card-full reveal">
+        <img class="event-card-full__img" src="https://www.moombabeach.com/storage/app/uploads/public/6a1/454/4f5/thumb_6106_550_412_0_0_crop.jpg" alt="Girls Gone Wild Party" loading="lazy" width="550" height="412">
+        <div class="event-card-full__body">
+          <div class="event-card-full__meta">
+            <span class="event-card-full__date"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Jun 27</span>
+            <span class="event-card-full__time"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>9 PM – 2 AM</span>
+          </div>
+          <h3 class="event-card-full__title">Girls Gone Wild Party</h3>
+          <p class="event-card-full__desc">Saturday nights at MooMba Beach are about to get even wilder. Get ready for a night of incredible music, nonstop dancing, and beach party energy that goes all the way to 2 AM.</p>
+        </div>
+      </article>
+
+      <article class="event-card-full reveal d1">
+        <img class="event-card-full__img" src="https://www.moombabeach.com/storage/app/uploads/public/6a1/451/33c/thumb_6105_550_412_0_0_crop.jpg" alt="Dress in White Party" loading="lazy" width="550" height="412">
+        <div class="event-card-full__body">
+          <div class="event-card-full__meta">
+            <span class="event-card-full__date"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Jun 26</span>
+            <span class="event-card-full__time"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>9 PM – 2 AM</span>
+          </div>
+          <h3 class="event-card-full__title">Dress in White Party</h3>
+          <p class="event-card-full__desc">White outfits, beach vibes, and a night full of music come together at MooMba Beach. Make it a Friday night to remember — come dressed in white and stay for the music.</p>
+        </div>
+      </article>
+
+      <article class="event-card-full reveal d2">
+        <img class="event-card-full__img" src="https://www.moombabeach.com/storage/app/uploads/public/6a1/44f/81b/thumb_6104_550_412_0_0_crop.jpg" alt="Neon Party" loading="lazy" width="550" height="412">
+        <div class="event-card-full__body">
+          <div class="event-card-full__meta">
+            <span class="event-card-full__date"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Jun 20</span>
+            <span class="event-card-full__time"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>9 PM – 2 AM</span>
+          </div>
+          <h3 class="event-card-full__title">Neon Party — Bring the Glow</h3>
+          <p class="event-card-full__desc">Saturday nights at MooMba Beach light up with color, music, and nonstop energy. Wear your neon and let the party glow — this one's unforgettable.</p>
+        </div>
+      </article>
+
+      <article class="event-card-full reveal">
+        <img class="event-card-full__img" src="https://www.moombabeach.com/storage/app/uploads/public/6a1/44c/aa4/thumb_6103_550_412_0_0_crop.jpg" alt="Red Lips Party" loading="lazy" width="550" height="412">
+        <div class="event-card-full__body">
+          <div class="event-card-full__meta">
+            <span class="event-card-full__date"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Jun 19</span>
+            <span class="event-card-full__time"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>9 PM – 2 AM</span>
+          </div>
+          <h3 class="event-card-full__title">Red Lips Party</h3>
+          <p class="event-card-full__desc">A Friday night at MooMba Beach turns bold, fun, and full of energy. Dress to impress with your boldest red look and dance all night on the sand.</p>
+        </div>
+      </article>
+
+      <article class="event-card-full reveal d1">
+        <img class="event-card-full__img" src="https://www.moombabeach.com/storage/app/uploads/public/6a1/44a/752/thumb_6102_550_412_0_0_crop.jpg" alt="Señorita Needs a Margarita" loading="lazy" width="550" height="412">
+        <div class="event-card-full__body">
+          <div class="event-card-full__meta">
+            <span class="event-card-full__date"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Jun 13</span>
+            <span class="event-card-full__time"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>9 PM – 2 AM</span>
+          </div>
+          <h3 class="event-card-full__title">Señorita Needs a Margarita</h3>
+          <p class="event-card-full__desc">The beach turns into the ultimate late-night party spot as Señorita Needs a Margarita takes over MooMba Beach for a night of music, margaritas, and dancing.</p>
+        </div>
+      </article>
+
+      <article class="event-card-full reveal d2">
+        <img class="event-card-full__img" src="https://www.moombabeach.com/storage/app/uploads/public/6a1/441/c2d/thumb_6100_550_412_0_0_crop.jpg" alt="Mamacita Coronita" loading="lazy" width="550" height="412">
+        <div class="event-card-full__body">
+          <div class="event-card-full__meta">
+            <span class="event-card-full__date"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Jun 6</span>
+            <span class="event-card-full__time"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>9 PM – 2 AM</span>
+          </div>
+          <h3 class="event-card-full__title">Mamacita Coronita — Latin Vibes</h3>
+          <p class="event-card-full__desc">Saturday nights turn up with Latin beats, dancing, and ice-cold Coronitas. Come for the music, stay for the atmosphere — pure Caribbean energy on the beach.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- RECURRING EVENTS -->
+<section class="recurring">
+  <div class="container">
+    <div class="t-eyebrow reveal" style="margin-bottom:0.75rem;">Every Week</div>
+    <h2 class="t-h2 reveal d1">Recurring <em>favorites</em></h2>
+    <div class="recurring__grid">
+      <div class="recurring-card reveal"><div class="recurring-card__icon">🌅</div><div class="recurring-card__title">Happy Hour</div><div class="recurring-card__when">Mon – Fri, 3 – 6 PM</div><p class="recurring-card__desc">2-for-1 on all classic cocktails and local beers. The best way to start your evening on Palm Beach.</p></div>
+      <div class="recurring-card reveal d1"><div class="recurring-card__icon">🦞</div><div class="recurring-card__title">Friday Lobster Night</div><div class="recurring-card__when">Every Friday</div><p class="recurring-card__desc">Whole Caribbean lobster grilled over open flame. Limited seats — come early to avoid missing out.</p></div>
+      <div class="recurring-card reveal d2"><div class="recurring-card__icon">🥂</div><div class="recurring-card__title">Sunday Brunch</div><div class="recurring-card__when">Every Sunday, 11 AM – 2 PM</div><p class="recurring-card__desc">All-inclusive brunch with bottomless mimosas, live music, and a full Caribbean spread. $35 per person.</p></div>
+      <div class="recurring-card reveal d3"><div class="recurring-card__icon">🎵</div><div class="recurring-card__title">Live Music</div><div class="recurring-card__when">Fri, Sat & Sun evenings</div><p class="recurring-card__desc">Local artists and international acts perform live on our beachfront stage every weekend.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div><div class="footer__logo-wrap"><div class="footer__logo-ring" aria-hidden="true">M</div><span class="footer__brand-name">MooMba Beach</span></div><p class="footer__brand-desc">Aruba's premier beach bar. Events, cocktails, and nightly entertainment on Palm Beach.</p><div class="footer__socials"><a class="footer__social" href="https://www.facebook.com/MooMbaBeach" target="_blank" rel="noopener" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a><a class="footer__social" href="https://www.instagram.com/moombabeacharuba/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a></div></div>
+      <div><div class="footer__col-head">Pages</div><ul class="footer__links"><li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li><li><a href="events.html">Events</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><div class="footer__col-head">Partners</div><ul class="footer__links"><li><a href="https://www.jolly-pirates.com" target="_blank" rel="noopener">Jolly Pirates</a></li><li><a href="https://www.kukookunuku.com" target="_blank" rel="noopener">Kukoo Kunuku</a></li><li><a href="https://www.palmbeachdiversaruba.com" target="_blank" rel="noopener">Palm Beach Divers</a></li></ul></div>
+      <div><div class="footer__col-head">More Venues</div><ul class="footer__links"><li><a href="https://www.quepasaaruba.com" target="_blank" rel="noopener">Que Pasa</a></li><li><a href="https://www.mambo-jambo.com" target="_blank" rel="noopener">Mambo Jambo</a></li><li><a href="https://www.surfsidearuba.com" target="_blank" rel="noopener">Surfside Beach Bar</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 MooMba Beach · Aruba Wine and Dine</span><a href="index.html">Back to Home</a></div>
+  </div>
+</footer>
+<div class="sticky-book"><a href="contact.html" class="btn btn--primary">Contact Us</a></div>
+<script src="main.js"></script>
+</body>
+</html>
